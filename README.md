@@ -14,9 +14,11 @@ This is a simple blog application built with Ruby on Rails. The idea is based on
 - README and basic deployment via Docker (local + instructions)
 
 ## Quick start (dev)
-2. `docker-compose up --build`
-3. `bundle exec rails db:create db:migrate`
-4. `rails server`
+1. Make sure you have Docker and Docker Compose installed.
+2. Create a `.env` file and add `RAILS_MASTER_KEY=<value from config/master.key>`.
+3. Run `docker-compose up --build -d`.
+4. In another terminal, run `docker-compose exec web bundle exec rails db:create db:migrate` to setup the database.
+5. Run `docker-compose exec web ./bin/dev` to start the server. The application will be available at `http://localhost:3000`.
 
 ## Testes
 `bundle exec rspec`
