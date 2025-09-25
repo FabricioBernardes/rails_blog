@@ -1,0 +1,17 @@
+<header class="bg-gray-800 text-white py-4">
+  <div class="container mx-auto flex justify-between items-center px-5">
+    <h1 class="text-xl font-bold"><a href="/">Rails Blog</a></h1>
+    <nav>
+      <ul class="flex space-x-4">
+        <li><a href="/posts" class="hover:underline">Posts</a></li>
+        <% if user_signed_in? %>
+          <li><a href="/users/edit" class="hover:underline">Edit Profile</a></li>
+          <li><a href="/users/sign_out" data-method="delete" class="hover:underline">Logout</a></li>
+        <% else %>
+          <li><a href="/users/sign_in" class="hover:underline">Login</a></li>
+          <li><a href="/users/sign_up" class="hover:underline">Sign Up</a></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>
