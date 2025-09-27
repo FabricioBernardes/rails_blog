@@ -1,0 +1,32 @@
+<% content_for :title, "Posts" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="font-bold text-4xl text-gray-800">Posts</h1>
+    <%= link_to "New Post", new_admin_post_path, class: "rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md" %>
+  </div>
+
+  <div id="posts" class="bg-white shadow-md rounded-lg divide-y divide-gray-200">
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <div class="p-5 flex flex-col sm:flex-row justify-between items-center">
+          <div class="flex-1">
+            <h2 class="text-lg font-semibold text-gray-700"><%= post.title %></h2>
+            <p class="text-sm text-gray-500 mt-1"><%= truncate(post.body, length: 100) %></p>
+          </div>
+          <div class="mt-4 sm:mt-0 sm:ml-4 flex space-x-2">
+            <%= link_to "Show", admin_post_path(post), class: "px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm font-medium" %>
+            <%= link_to "Edit", edit_admin_post_path(post), class: "px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-white rounded-md text-sm font-medium" %>
+            <%= button_to "Destroy", admin_post_path(post), method: :delete, class: "px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md text-sm font-medium", data: { turbo_confirm: "Are you sure?" } %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center py-10 text-gray-500">No posts found.</p>
+    <% end %>
+  </div>
+</div>
