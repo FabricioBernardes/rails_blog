@@ -1,14 +1,3 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-#
-# Ensure Faker is installed
 begin
   require 'faker'
 rescue LoadError
@@ -16,20 +5,51 @@ rescue LoadError
   exit
 end
 
-# Create a user
 User.create!(
-  email: 'test@test.com',
+  email: 'admin@admin.com',
   password: 'password123',
-  password_confirmation: 'password123'
+  password_confirmation: 'password123',
+  role: 'admin'
 )
 
-# Create 10 posts
-10.times do
-  Post.create!(
-    title: Faker::Book.title,
-    body: Faker::Lorem.paragraph(sentence_count: 5),
-    user_id: User.first.id
-  )
+author_1 = User.create!(
+  email: 'author1@author1.com',
+  password: 'password123',
+  password_confirmation: 'password123',
+  role: 'author'
+)
+
+author_2 = User.create!(
+  email: 'author2@author2.com',
+  password: 'password123',
+  password_confirmation: 'password123',
+  role: 'author'
+)
+
+post_content = "
+  <h2>#{Faker::Lorem.sentence}</h2>
+  <p>#{Faker::Lorem.paragraph(sentence_count: 5)}</p>
+  <h3>#{Faker::Lorem.sentence}</h3>
+  <ul>
+    <li>#{Faker::Lorem.sentence}</li>
+    <li>#{Faker::Lorem.sentence}</li>
+    <li>#{Faker::Lorem.sentence}</li>
+    </ul>
+  <p>#{Faker::Lorem.paragraph(sentence_count: 10)}</p>
+  <p>#{Faker::Lorem.paragraph(sentence_count: 5)}</p>
+  <p>#{Faker::Lorem.paragraph(sentence_count: 8)}</p>
+"
+
+[ author_1, author_2 ].each do |author|
+  10.times do |i|
+    title = Faker::Book.title
+    Post.create!(
+      title: title,
+      body: post_content,
+      user: author,
+      slug: "#{title.parameterize}-#{SecureRandom.hex(4)}"
+    )
+  end
 end
 
 puts "Seeding completed successfully!"
