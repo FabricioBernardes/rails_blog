@@ -5,7 +5,7 @@ module Admin
     before_action :set_post, only: %i[show edit update destroy]
 
     def index
-      @posts = current_user.admin? ? Post.all : current_user.posts
+          @pagy, @posts = pagy(Post.published.includes(:user).order(published_at: :desc), items: 10)
     end
 
     def new
