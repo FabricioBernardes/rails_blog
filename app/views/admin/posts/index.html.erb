@@ -16,7 +16,7 @@
         <div class="p-5 flex flex-col sm:flex-row justify-between items-center">
           <div class="flex-1">
             <h2 class="text-lg font-semibold text-gray-700"><%= post.title %></h2>
-            <p class="text-sm text-gray-500 mt-1"><%= truncate(post.body, length: 100) %></p>
+            <div class="text-gray-600 mt-3 line-clamp-1"><%= (simple_format(post.body)) %></div>
           </div>
           <div class="mt-4 sm:mt-0 sm:ml-4 flex space-x-2">
             <%= link_to "Show", post_path(post), class: "px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm font-medium" %>
