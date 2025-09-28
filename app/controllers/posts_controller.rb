@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[ show ]
 
   def index
-    @posts = Post.all
+    @pagy, @posts = pagy(Post.published.includes(:user).order(published_at: :desc), items: 10)
   end
 
   def show
@@ -10,6 +10,6 @@ class PostsController < ApplicationController
 
   private
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.published.includes(:user).find_by!(slug: params[:slug])
     end
 end

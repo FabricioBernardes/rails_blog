@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   root "home#index"
 
   namespace :admin do
-    resources :posts
+    resources :posts, param: :slug
   end
 
-  resources :posts, only: [ :index, :show ]
+  resources :posts, only: [ :index, :show ], param: :slug
   get "posts/*other", to: redirect("/")
 end

@@ -47,7 +47,8 @@ post_content = "
       title: title,
       body: post_content,
       user: author,
-      slug: "#{title.parameterize}-#{SecureRandom.hex(4)}"
+      published_at: Faker::Date.backward(days: 30),
+      status: :published,
     )
   end
 end
