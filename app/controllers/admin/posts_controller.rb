@@ -43,13 +43,14 @@ module Admin
     private
 
     def set_post
-      @post = Post.find(params[:id])
+      slug_param = params[:slug] || params[:id]
+      @post = Post.find_by(slug: slug_param)
+
+      raise ActiveRecord::RecordNotFound, "Couldn't find Post with slug or id '#{slug_param}'" unless @post
     end
 
     def post_params
-      params.require(:post).permit(:title, :body, :slug, :status, :published_at).tap do |whitelisted|
-        whitelisted[:status] = whitelisted[:status].to_i if whitelisted[:status].present?
-      end
+      params.require(:post).permit(:title, :body, :slug, :status, :published_at)
     end
 
     def authorize_admin_or_author!

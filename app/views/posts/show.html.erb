@@ -1,32 +1,29 @@
-<% content_for :title, "Post Details" %>
-
 <div class="md:w-2/3 w-full mx-auto bg-white shadow-md rounded-lg p-6">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <h1 class="font-bold text-4xl text-gray-800 mb-4">Post Details</h1>
-
-  <div class="space-y-4">
-    <div>
-      <h2 class="text-lg font-semibold text-gray-700">Title:</h2>
-      <p class="text-gray-600"><%= @post.title %></p>
-    </div>
-    <div>
-      <h2 class="text-lg font-semibold text-gray-700">Body:</h2>
-      <p class="text-gray-600"><%= simple_format(@post.body) %></p>
-    </div>
-    <div>
-      <h2 class="text-lg font-semibold text-gray-700">Slug:</h2>
-      <p class="text-gray-600"><%= @post.slug %></p>
-    </div>
-    <div>
-      <h2 class="text-lg font-semibold text-gray-700">Status:</h2>
-      <p class="text-gray-600 capitalize"><%= @post.status %></p>
-    </div>
-    <div>
-      <h2 class="text-lg font-semibold text-gray-700">Published At:</h2>
-      <p class="text-gray-600"><%= @post.published_at || 'Not published yet' %></p>
+  <div class="mb-6">
+    <%= link_to "← Back to all posts", posts_path, class: "text-blue-600 hover:underline" %>
+  </div>
+  
+  <h1 class="font-bold text-4xl text-gray-800 mb-2"><%= @post.title %></h1>
+  
+  <div class="flex items-center text-gray-500 mb-8">
+    <span>By <%= author_display_name(@post.user) %></span>
+    <span class="mx-2">•</span>
+    <span><%= format_post_date(@post.published_at) %></span>
+  </div>
+  
+  <div class="prose max-w-none">
+    <%= simple_format(@post.body, class: "text-gray-700 leading-relaxed") %>
+  </div>
+  
+  <div class="mt-12 pt-6 border-t border-gray-200">
+    <div class="flex justify-between items-center">
+      <p class="text-sm text-gray-500">
+        Published in <%= @post.published_at&.strftime("%B %Y") || "Draft" %>
+      </p>
     </div>
   </div>
 </div>
