@@ -13,6 +13,12 @@ Rails.application.routes.draw do
     resources :posts, param: :slug
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :posts, only: [ :index, :show ], param: :slug
+    end
+  end
+
   resources :posts, only: [ :index, :show ], param: :slug
   get "posts/*other", to: redirect("/")
 end
