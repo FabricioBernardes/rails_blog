@@ -61,4 +61,7 @@ group :test do
   gem "rspec-rails"
   gem "capybara"
   gem "selenium-webdriver"
+  gem "factory_bot_rails"
+  gem "shoulda-matchers"
+  gem "database_cleaner-active_record"
 end
