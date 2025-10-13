@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe "Posts", type: :request do
   let!(:user) { create(:user) }
   let!(:published_post) { create(:post, :published, user: user, title: "Published Title") }
-  let!(:unpublished_post) { create(:post, :unpublished, user: user, title: "Unpublished Title") }
+  let!(:unpublished_post) { create(:post, :draft, user: user, title: "Unpublished Title") }
 
   describe 'GET /posts' do
     it 'shows only published posts in the response body' do

@@ -13,11 +13,6 @@ FactoryBot.define do
       published_at { nil }
     end
 
-    trait :unpublished do
-      status { :draft }
-      published_at { nil }
-    end
-
     trait :published do
       status { :published }
       published_at { Faker::Time.between(from: 30.days.ago, to: Time.current) }
