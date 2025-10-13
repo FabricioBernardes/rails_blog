@@ -22,7 +22,7 @@ This is a simple blog application built with Ruby on Rails. The idea is based on
 6. Run `docker-compose exec web ./bin/dev` to start the server. The application will be available at `http://localhost:3000`.
 
 ## Testes
-`bundle exec rspec`
+`docker-compose exec web bundle exec "rspec"`
 
 ## Deploy
 - CI runs tests and builds Docker image

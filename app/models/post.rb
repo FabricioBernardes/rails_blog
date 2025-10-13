@@ -20,12 +20,20 @@ class Post < ApplicationRecord
     return if slug.present? || title.blank?
 
     base_slug = title.to_s.parameterize
-    unique_slug = base_slug
-    counter = 2
+    existing_slugs = Post.where("slug LIKE ?", "#{base_slug}%").pluck(:slug)
 
-    while Post.exists?(slug: unique_slug)
-      unique_slug = "#{base_slug}-#{counter}"
-      counter += 1
+    if !existing_slugs.include?(base_slug)
+      unique_slug = base_slug
+    else
+      counter = 2
+      loop do
+        candidate = "#{base_slug}-#{counter}"
+        unless existing_slugs.include?(candidate)
+          unique_slug = candidate
+          break
+        end
+        counter += 1
+      end
     end
 
     self.slug = unique_slug
