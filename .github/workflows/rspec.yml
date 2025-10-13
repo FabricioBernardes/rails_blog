@@ -22,5 +22,8 @@ jobs:
     - name: Install dependencies
       run: bundle install --jobs 4 --retry 3
 
+    - name: Build Tailwind CSS
+      run: bundle exec rails tailwindcss:build
+
     - name: Run RSpec tests
       run: bundle exec rspec
